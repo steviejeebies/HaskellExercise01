@@ -26,7 +26,7 @@ It is imported should you want to use it.
 
 -}
 raise :: String -> String
-raise str = undefined
+raise str = [toUpper x | x <- str]
 
 {- Part 2
 
@@ -35,7 +35,7 @@ Hint: the test will answer your Qs
 
 -}
 nth :: Int -> [a] -> a
-nth i xs = undefined
+nth i xs = xs !! (i - 1)
 
 
 {- Part 3
@@ -45,7 +45,12 @@ and reports the length of the prefix they have in common.
 
 -}
 commonLen :: Eq a => [a] -> [a] -> Int
-commonLen xs ys = undefined
+commonLen [] _ = 0
+commonLen _ [] = 0
+commonLen xs ys 
+    | (head xs) == (head ys) 
+    = 1 + commonLen (tail xs) (tail ys)
+    | otherwise = 0
 
 {- Part 4
 
@@ -65,4 +70,9 @@ HINT: Don't worry about code efficiency
 
 -}
 runs :: Eq a => [a] -> [[a]]
-runs xs = undefined
+runs [] = []
+runs xs = [[(head xs)] ++ eqHead (head xs) (tail xs)]
+eqHead [] = []
+eqHead x xs 
+       | x == head xs = head xs
+       | otherwise = []
