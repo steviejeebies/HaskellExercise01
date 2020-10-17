@@ -72,7 +72,7 @@ HINT: Don't worry about code efficiency
 runs [] = []
 runs xs =
     let (_, remainderArr, groupArr) = innerArr (head xs, tail xs, [])
-    in [groupArr] ++ runs remainderArr
+    in groupArr : runs remainderArr     -- initially had [groupArr] ++ runs remainderArr, but using : is more efficient
 
 -- helper function, returns a tuple - 'x' is the value used for comparison, 
 -- 'xs' is the remainder of the full array being iterated, 'groupArr' is being built to make [1,1,1] or [2,2], etc
